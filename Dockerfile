@@ -1,13 +1,12 @@
-FROM debian:10.2-slim
+FROM debian:10.3-slim
 
 ADD . /app
 WORKDIR /app
 
 RUN apt-get update \
     && apt-get install -y php php-cli php-dom php-zip php-sqlite3 php-mbstring \
-    && apt-get install -y curl libxrender1
+    && apt-get install -y curl libxrender1 libfontconfig1 libxext6 fonts-ipafont
 
-# php.ini
 COPY php-override.ini /etc/php/7.3/cli/conf.d
 
 # Composer
@@ -21,7 +20,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && npm install -g npm \
     && npm install -g yarn
 
-# Install PHP modules / Install Node modules / JS Compile
 RUN composer install && yarn install && yarn dev && php artisan migrate
 
 CMD php artisan serve --host=0.0.0.0
