@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return PDF::loadHTML('<h1>Hello!</h1>')->inline();
 });
+
+Route::get('/members', function () {
+    $member = Faker\Factory::create('ja_JP');
+    return PDF::loadView('members', compact('member'))->inline();
+});
