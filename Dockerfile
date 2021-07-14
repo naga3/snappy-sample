@@ -23,9 +23,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && npm install -g npm \
     && npm install -g yarn
 
-RUN composer install
-RUN yarn install && yarn dev
-RUN touch database/database.sqlite
-RUN php artisan migrate
-
+COPY docker-entrypoint.sh /tmp/docker-entrypoint.sh
+RUN chmod 777 /tmp/docker-entrypoint.sh
+ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
 CMD php artisan serve --host=0.0.0.0
