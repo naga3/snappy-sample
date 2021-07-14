@@ -7,6 +7,8 @@ RUN apt-get update \
     && apt-get install -y php php-cli php-dom php-zip php-sqlite3 php-mbstring \
     && apt-get install -y curl libxrender1 libfontconfig1 libxext6 fonts-ipafont
 
+RUN apt-get install -y wkhtmltopdf
+
 COPY php-override.ini /etc/php/7.3/cli/conf.d
 
 # Composer
