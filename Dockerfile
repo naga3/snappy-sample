@@ -23,6 +23,9 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && npm install -g npm \
     && npm install -g yarn
 
-RUN composer install && yarn install && yarn dev && php artisan migrate
+RUN composer install
+RUN yarn install && yarn dev
+RUN touch database/database.sqlite
+RUN php artisan migrate
 
 CMD php artisan serve --host=0.0.0.0
